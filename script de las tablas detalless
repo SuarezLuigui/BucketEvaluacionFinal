@@ -1,3 +1,56 @@
+
+-- -----------------------------------------------------
+-- Table `EF-SuarezFiestas`.`pizzeria`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `EF-SuarezFiestas`.`pizzeria` (
+  `idpizzeria` INT NOT NULL AUTO_INCREMENT,
+  `direccion` VARCHAR(45) NULL,
+  `pizzeriacol` VARCHAR(45) NULL,
+  PRIMARY KEY (`idpizzeria`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `EF-SuarezFiestas`.`Pizza`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `EF-SuarezFiestas`.`Pizza` (
+  `idPizza` INT NOT NULL AUTO_INCREMENT,
+  `nombrePizza` VARCHAR(45) NULL,
+  `Descripcion` VARCHAR(45) NULL,
+  `pizzeria_idpizzeria` INT NOT NULL,
+  PRIMARY KEY (`idPizza`),
+  INDEX `fk_Pizza_pizzeria1_idx` (`pizzeria_idpizzeria` ASC) VISIBLE,
+  CONSTRAINT `fk_Pizza_pizzeria1`
+    FOREIGN KEY (`pizzeria_idpizzeria`)
+    REFERENCES `EF-SuarezFiestas`.`pizzeria` (`idpizzeria`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `EF-SuarezFiestas`.`cliente`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `EF-SuarezFiestas`.`cliente` (
+  `idcliente` INT NOT NULL AUTO_INCREMENT,
+  `nombreCliente` VARCHAR(45) NULL,
+  `apellidoCliente` VARCHAR(45) NULL,
+  `nroCelular` INT NULL,
+  `direccion` VARCHAR(45) NULL,
+  `Pizza_idPizza` INT NOT NULL,
+  PRIMARY KEY (`idcliente`),
+  INDEX `fk_cliente_Pizza_idx` (`Pizza_idPizza` ASC) VISIBLE,
+  CONSTRAINT `fk_cliente_Pizza`
+    FOREIGN KEY (`Pizza_idPizza`)
+    REFERENCES `EF-SuarezFiestas`.`Pizza` (`idPizza`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
+//TABLAS DETALLES 
+
 Script de Tabla "pizzas_clientes":
 
 create table pizzas_clientes(
